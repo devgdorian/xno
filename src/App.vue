@@ -1,10 +1,34 @@
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/xno">Xno</router-link>
+    <router-link to="/xno">Xno</router-link> | 
+    <button
+      v-if="authState && authState.isAuthenticated"
+      v-on:click="logout"
+      id="logout-button"
+    >
+      Logout
+    </button>
+    <button v-else v-on:click="login" id="login-button">Login</button>
   </div>
   <router-view />
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'app',
+  methods: {
+    async login () {
+      await this.$auth.signInWithRedirect()
+    },
+    async logout () {
+      await this.$auth.signOut()
+    }
+  }
+})
+</script>
 
 <style lang="less">
 #app {
