@@ -2,14 +2,14 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/xno">Xno</router-link> |
-    <button
+    <!-- <button
       v-if="authState && authState.isAuthenticated"
       v-on:click="logout"
       id="logout-button"
     >
       Logout
     </button>
-    <button v-else v-on:click="login" id="login-button">Login</button>
+    <button v-else v-on:click="login" id="login-button">Login</button> -->
   </div>
   <router-view />
 </template>
@@ -21,10 +21,10 @@ export default defineComponent({
   name: "app",
   methods: {
     async login() {
-      await this.$auth.signInWithRedirect();
+      //await this.$auth.signInWithRedirect();
     },
     async logout() {
-      await this.$auth.signOut();
+      //await this.$auth.signOut();
     },
   },
 });

@@ -1,5 +1,3 @@
-import { LoginCallback } from "@okta/okta-vue";
-import { navigationGuard } from "@okta/okta-vue";
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Xno from "../views/Xno.vue";
@@ -10,10 +8,10 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  {
-    path: "/login/callback",
-    component: LoginCallback,
-  },
+  // {
+  //   path: "/login/callback",
+  //   component: LoginCallback,
+  // },
   {
     path: "/xno",
     name: "Xno",
@@ -38,6 +36,6 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(navigationGuard);
+// router.beforeEach(navigationGuard);
 
 export default router;

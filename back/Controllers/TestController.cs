@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Xno.Models;
 
 namespace Xno.Controllers
@@ -12,17 +11,21 @@ namespace Xno.Controllers
     [Route("api/[controller]")]
     public class TestController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly ApplicationDbContext _db;
+
+        private UserManager<AppUser> _userManager = null;
+        private SignInManager<AppUser> _signInManager = null;
 
         public TestController(ApplicationDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _db = dbContext;
+            //_userManager = new UserManager<ApplicationUser>();
         }
 
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public ActionResult<List<AppUser>> Get()
         {
-            return Ok();
+            return _db.AppUsers.ToList();
         }
     }
 }
