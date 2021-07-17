@@ -73,12 +73,12 @@ namespace Xno
             {
                 app.UseDeveloperExceptionPage();
             }
-            
-            app.UseCors("VueCorsPolicy");
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseHttpsRedirection();
+            
+            app.UseCors("VueCorsPolicy");
 
             app.UseAuthentication();
 
