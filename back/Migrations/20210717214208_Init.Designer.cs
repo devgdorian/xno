@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Xno.Models;
+using Xno.Models.Db;
 
-namespace Xno.Migrations
+namespace xno.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210717170703_Init")]
+    [Migration("20210717214208_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,7 +146,7 @@ namespace Xno.Migrations
                     b.ToTable("AppUserTokens");
                 });
 
-            modelBuilder.Entity("Xno.Models.AppUser", b =>
+            modelBuilder.Entity("Xno.Models.Db.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -221,7 +221,7 @@ namespace Xno.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Xno.Models.AppUser", null)
+                    b.HasOne("Xno.Models.Db.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -230,7 +230,7 @@ namespace Xno.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Xno.Models.AppUser", null)
+                    b.HasOne("Xno.Models.Db.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -245,7 +245,7 @@ namespace Xno.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Xno.Models.AppUser", null)
+                    b.HasOne("Xno.Models.Db.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -254,7 +254,7 @@ namespace Xno.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Xno.Models.AppUser", null)
+                    b.HasOne("Xno.Models.Db.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

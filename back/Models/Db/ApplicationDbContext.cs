@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Xno.Models {
+namespace Xno.Models.Db
+{
     public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -22,6 +22,6 @@ namespace Xno.Models {
             modelBuilder.Entity<AppUser>().ToTable("AppUsers");
         }
 
-        public List<AppUser> AppUsers { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
     }
 }

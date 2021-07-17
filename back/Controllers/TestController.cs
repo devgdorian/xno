@@ -1,31 +1,28 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Xno.Models;
+using Microsoft.EntityFrameworkCore;
+using Xno.Models.Db;
 
 namespace Xno.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TestController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
 
-        private UserManager<AppUser> _userManager = null;
-        private SignInManager<AppUser> _signInManager = null;
-
         public TestController(ApplicationDbContext dbContext)
         {
             _db = dbContext;
-            //_userManager = new UserManager<ApplicationUser>();
         }
 
         [HttpGet]
-        public ActionResult<List<AppUser>> Get()
+        public async Task<ActionResult<List<AppUser>>> Get()
         {
-            return _db.AppUsers.ToList();
+            return await _db.AppUsers.ToListAsync();
         }
     }
 }
