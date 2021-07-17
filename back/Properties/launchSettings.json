@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "xno": {
+    "Xno": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",

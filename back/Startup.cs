@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Xno.Models;
 
-namespace xno
+namespace Xno
 {
     public class Startup
     {

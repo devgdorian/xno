@@ -1,4 +1,4 @@
-# xno
+# Xno
 
 ## Project setup
 ```

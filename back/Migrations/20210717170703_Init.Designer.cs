@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Xno.Models;
 
-namespace xno.Migrations
+namespace Xno.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20210717170703_Init")]
