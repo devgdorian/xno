@@ -5,12 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "css-build": "node-sass --omit-source-map-url src/assets/main.scss public/css/main.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "npm run css-watch"
   },
   "dependencies": {
     "@okta/okta-auth-js": "^5.2.2",
     "@okta/okta-vue": "^5.0.0",
     "axios": "^0.21.1",
+    "bulma": "^0.9.3",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0",
@@ -32,6 +36,8 @@
     "eslint-plugin-vue": "^7.0.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
-    "prettier": "^2.2.1"
+    "node-sass": "^6.0.1",
+    "prettier": "^2.2.1",
+    "sass-loader": "^12.1.0"
   }
 }

@@ -455,3 +455,6 @@ pnpm-debug.log*
 
 # Database
 *.db*
+
+# CSS
+css/

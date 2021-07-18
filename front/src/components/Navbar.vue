@@ -1,17 +1,34 @@
 <template>
-  <div id="nav">
-    <span id="logo">
-      <router-link to="/">XNO</router-link>
-    </span>
-    <span id="action-bar" v-if="isLoggedIn">
-      <a @click="account">Account</a>
-      |
-      <a @click="logout">Logout</a>
-    </span>
-    <span id="status">
-      {{ status }}
-    </span>
-  </div>
+  <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <router-link to="/" class="navbar-item">
+        <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
+        XNO
+      </router-link>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-start">
+        <div class="navbar-item" id="status">
+          {{ status }}
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item" v-if="isLoggedIn">
+            <a @click="account">Account</a>
+        </div>
+        <div class="navbar-item" v-if="isLoggedIn">
+            <a @click="logout">Log out</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -37,38 +54,3 @@ export default {
   },
 };
 </script>
-
-<style>
-#nav {
-  margin: -8px;
-  padding: 20px;
-  background-color: lightgrey;
-}
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-a:hover {
-  cursor: pointer;
-}
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-#logo {
-  padding-left: 5%;
-  text-align:left;
-}
-
-#action-bar {
-  padding-right: 5%;
-  text-align: right;
-}
-
-#status {
-  padding-right: 5%;
-  text-align: right;
-  font-style: italic;
-  font-size: 90%;
-}
-</style>
