@@ -1,13 +1,20 @@
 <template>
  <div>
-   <form class="login" @submit.prevent="login">
-     <h1>Sign in</h1>
+   <form class="register" @submit.prevent="register">
+     <h1>Register</h1>
      <label>User name</label>
      <input required v-model="username" type="text" placeholder="Snoopy"/>
+     <br/>
+     <br/>
+     <label>Email</label>
+     <input required v-model="email" type="text" placeholder="Email"/>
+     <br/>
+     <br/>
      <label>Password</label>
      <input required v-model="password" type="password" placeholder="Password"/>
-     <hr/>
-     <button type="submit">Login</button>
+     <br/>
+     <br/>
+     <button type="submit">Register</button>
    </form>
  </div>
 </template>
@@ -17,28 +24,26 @@
 
   const instance = axios.create({
     baseURL: 'https://localhost:5001/api',
-    headers: { 'Access-Control-Allow-Origin': '*' }
+    // headers: { 'Access-Control-Allow-Origin': '*' }
   });
 
-  const myLoginRoutine = user => new Promise ((resolve, reject) => {
-    instance({url: 'auth/login', data: user, method: 'POST' })
+  const myRegisterRoutine = user => new Promise ((resolve, reject) => {
+    instance({url: 'auth/register', data: user, method: 'POST' })
       .then(resp => {
-        const token = resp.data.token
-        localStorage.setItem('user-token', token) // store the token in localstorage
-        resolve(resp)
+        console.log(resp)
       })
     .catch(err => {
-      localStorage.removeItem('user-token') // if the request fails, remove any possible user token if possible
+      console.log(err)
       reject(err)
     })
   });
   
   export default {
-    name: "Login",
+    name: "Register",
     methods: {
-      login: function () {
-        const { username, password } = this
-        myLoginRoutine({ username, password }).then(() => {
+      register: function () {
+        const { username, email, password } = this
+        myRegisterRoutine({ username, email, password }).then(() => {
           this.$router.push('/')
         })
       }
