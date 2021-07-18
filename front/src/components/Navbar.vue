@@ -1,25 +1,26 @@
 <template>
   <div id="nav">
-    {{ status }}
-    <router-link to="/">Accueil</router-link> |
-    <span v-if="isLoggedIn">
+    <span id="logo">
+      <router-link to="/">XNO</router-link>
+    </span>
+    <span id="action-bar" v-if="isLoggedIn">
+      <a @click="account">Account</a>
+      |
       <a @click="logout">Logout</a>
     </span>
-    <span v-else>
-      <Login />
+    <span id="status">
+      {{ status }}
     </span>
   </div>
 </template>
 
 <script>
-import Login from "@/components/Login.vue";
 import { mapGetters } from "vuex";
 import { AUTH_LOGOUT } from "@/store/modules/auth.js";
 
 export default {
   name: "Navbar",
   components: {
-    Login,
   },
   computed: {
     ...mapGetters({ status: "authStatus" }),
@@ -39,7 +40,9 @@ export default {
 
 <style>
 #nav {
-  padding: 30px;
+  margin: -8px;
+  padding: 20px;
+  background-color: lightgrey;
 }
 #nav a {
   font-weight: bold;
@@ -50,5 +53,22 @@ a:hover {
 }
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#logo {
+  padding-left: 5%;
+  text-align:left;
+}
+
+#action-bar {
+  padding-right: 5%;
+  text-align: right;
+}
+
+#status {
+  padding-right: 5%;
+  text-align: right;
+  font-style: italic;
+  font-size: 90%;
 }
 </style>
