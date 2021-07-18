@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
     
 namespace Xno.Models  
 {  
-    public class LoginModel  
+    public class SignInModel  
     {  
         [Required(ErrorMessage = "User Name is required")]  
         public string Username { get; set; }  

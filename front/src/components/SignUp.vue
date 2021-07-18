@@ -1,7 +1,7 @@
 <template>
   <div>
-    <form class="register" @submit.prevent="register">
-      <h1>Register</h1>
+    <form class="signup" @submit.prevent="signup">
+      <h1>Sign up</h1>
       <label>User name</label>
       <input required v-model="username" type="text" placeholder="Snoopy" />
       <br />
@@ -19,7 +19,7 @@
       />
       <br />
       <br />
-      <button type="submit">Register</button>
+      <button type="submit">Sign up</button>
     </form>
     <p v-if="showError" id="error">An error occured :</p>
     <ul v-if="showError">
@@ -37,15 +37,15 @@
 </template>
 
 <script>
-import { REGISTER_REQUEST } from "@/store/modules/auth.js";
+import { SIGNUP_REQUEST } from "@/store/modules/auth.js";
 
 export default {
-  name: "Register",
+  name: "SignUp",
   methods: {
-    register: function () {
+    signup: function () {
       const { username, email, password } = this;
       this.$store
-        .dispatch(REGISTER_REQUEST, { username, email, password })
+        .dispatch(SIGNUP_REQUEST, { username, email, password })
         .then(() => {
           this.$router.push("/");
         });

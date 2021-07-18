@@ -4,7 +4,7 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import axios from "axios";
-import AUTH_LOGOUT from "@/store/modules/auth.js";
+import SIGNOFF_REQUEST from "@/store/modules/auth.js";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "https://localhost:5001/api/";
@@ -16,7 +16,7 @@ axios.interceptors.response.use(undefined, function (error) {
       error.config &&
       !error.config.__isRetryRequest
     ) {
-      this.$store.dispatch(AUTH_LOGOUT);
+      this.$store.dispatch(SIGNOFF_REQUEST);
       return router.push("/");
     }
     throw error;

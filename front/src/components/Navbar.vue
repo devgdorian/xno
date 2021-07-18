@@ -28,7 +28,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { AUTH_LOGOUT } from "@/store/modules/auth.js";
+import { SIGNOFF_REQUEST } from "@/store/modules/auth.js";
 
 export default {
   name: "Navbar",
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     logout: function () {
-      this.$store.dispatch(AUTH_LOGOUT).then(() => {
+      this.$store.dispatch(SIGNOFF_REQUEST).then(() => {
         this.$router.push("/");
       });
     },

@@ -89,16 +89,16 @@
             </div>
           </div>
         </div>
-        <!-- <Register v-if="!isLoggedIn" /> -->
+        <!-- <SignUp v-if="!isLoggedIn" /> -->
       </div>
   </div>
-  <Login :showmodal="showSignIn" @close="toggleShowSignIn" v-if="!isLoggedIn" />
+  <SignIn :showmodal="showSignIn" @close="toggleShowSignIn" v-if="!isLoggedIn" />
   </section>
 </template>
 
 <script>
-import Login from "@/components/Login.vue";
-// import Register from "@/components/Register.vue";
+import SignIn from "@/components/SignIn.vue";
+// import SignUp from "@/components/SignUp.vue";
 
 export default {
   name: "Home",
@@ -109,8 +109,8 @@ export default {
     }
   },
   components: {
-    Login,
-    // Register,
+    SignIn,
+    // SignUp,
   },
   methods: {
     toggleShowSignIn () {

@@ -7,7 +7,7 @@
         <button class="delete" @click="$emit('close')" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
-        <form class="login" @submit.prevent="login">
+        <form class="signin" @submit.prevent="signin">
           <label>User name</label>
           <br />
           <input required v-model="username" type="text" />
@@ -23,7 +23,7 @@
           />
           <br />
           <br />
-          <button class="button is-primary" type="submit">Login</button>
+          <button class="button is-primary" type="submit">Sign In</button>
         </form>
       </section>
       <p v-if="showError" id="error">Username or Password is incorrect</p>
@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import { AUTH_REQUEST } from "@/store/modules/auth.js";
+import { SIGNIN_REQUEST } from "@/store/modules/auth.js";
 
 export default {
-  name: "Login",
+  name: "SignIn",
   data() {
     return {
       username: null,
@@ -45,9 +45,9 @@ export default {
   },
   props: ['showmodal'],
   methods: {
-    login: function () {
+    signin: function () {
       const { username, password } = this;
-      this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
+      this.$store.dispatch(SIGNIN_REQUEST, { username, password }).then(() => {
         this.$emit('close');
         this.$router.push("/");
       });

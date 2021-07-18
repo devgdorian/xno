@@ -26,8 +26,8 @@ namespace Xno.Controllers
         }  
 
         [HttpPost]  
-        [Route("login")]  
-        public async Task<IActionResult> Login([FromBody] LoginModel model)  
+        [Route("signin")]  
+        public async Task<IActionResult> SignIn([FromBody] SignInModel model)  
         {  
             var user = await userManager.FindByNameAsync(model.Username);  
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))  
@@ -51,8 +51,8 @@ namespace Xno.Controllers
         }  
   
         [HttpPost]  
-        [Route("register")]  
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)  
+        [Route("signup")]  
+        public async Task<IActionResult> SignUp([FromBody] SignUpModel model)  
         {  
             var userExists = await userManager.FindByNameAsync(model.Username);  
             if (userExists != null)  
