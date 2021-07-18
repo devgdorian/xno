@@ -5,18 +5,13 @@
         <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
         XNO
       </router-link>
-
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
     </div>
 
     <div id="navbar" class="navbar-menu">
       <div class="navbar-start">
+        <div class="navbar-item"></div>
         <div class="navbar-item" id="status">
-          {{ status }}
+          <span class="tag is-info">{{ status }}</span>
         </div>
       </div>
       <div class="navbar-end">
@@ -37,8 +32,6 @@ import { AUTH_LOGOUT } from "@/store/modules/auth.js";
 
 export default {
   name: "Navbar",
-  components: {
-  },
   computed: {
     ...mapGetters({ status: "authStatus" }),
     isLoggedIn: function () {
