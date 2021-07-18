@@ -16,10 +16,10 @@
       </div>
       <div class="navbar-end">
         <div class="navbar-item" v-if="isLoggedIn">
-            <a @click="account">Account</a>
+          <a @click="account">Account</a>
         </div>
         <div class="navbar-item" v-if="isLoggedIn">
-            <a @click="logout">Log out</a>
+          <a @click="logout">Log out</a>
         </div>
       </div>
     </div>

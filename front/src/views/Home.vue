@@ -52,7 +52,9 @@
           <div class="level-item">
             <div>
               <p class="heading">Cargo hold</p>
-              <p class="title"><span class="tag is-primary">Ressources</span></p>
+              <p class="title">
+                <span class="tag is-primary">Ressources</span>
+              </p>
             </div>
           </div>
           <div class="level-item">
@@ -89,16 +91,24 @@
             </div>
           </div>
         </div>
-        <!-- <SignUp v-if="!isLoggedIn" /> -->
       </div>
-  </div>
-  <SignIn :showmodal="showSignIn" @close="toggleShowSignIn" v-if="!isLoggedIn" />
+    </div>
+    <SignIn
+      :showmodal="showSignIn"
+      @close="toggleShowSignIn"
+      v-if="!isLoggedIn"
+    />
+    <SignUp
+      :showmodal="showSignUp"
+      @close="toggleShowSignUp"
+      v-if="!isLoggedIn"
+    />
   </section>
 </template>
 
 <script>
 import SignIn from "@/components/SignIn.vue";
-// import SignUp from "@/components/SignUp.vue";
+import SignUp from "@/components/SignUp.vue";
 
 export default {
   name: "Home",
@@ -106,17 +116,17 @@ export default {
     return {
       showSignIn: false,
       showSignUp: false,
-    }
+    };
   },
   components: {
     SignIn,
-    // SignUp,
+    SignUp,
   },
   methods: {
-    toggleShowSignIn () {
+    toggleShowSignIn() {
       this.showSignIn = !this.showSignIn;
     },
-    toggleShowSignUp () {
+    toggleShowSignUp() {
       this.showSignUp = !this.showSignUp;
     },
   },

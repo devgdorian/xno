@@ -1,38 +1,37 @@
 <template>
-  <div>
-    <form class="signup" @submit.prevent="signup">
-      <h1>Sign up</h1>
-      <label>User name</label>
-      <input required v-model="username" type="text" placeholder="Snoopy" />
-      <br />
-      <br />
-      <label>Email</label>
-      <input required v-model="email" type="text" placeholder="Email" />
-      <br />
-      <br />
-      <label>Password</label>
-      <input
-        required
-        v-model="password"
-        type="password"
-        placeholder="Password"
-      />
-      <br />
-      <br />
-      <button type="submit">Sign up</button>
-    </form>
-    <p v-if="showError" id="error">An error occured :</p>
-    <ul v-if="showError">
-      <li>
-        {{ errors.Username }}
-      </li>
-      <li>
-        {{ errors.Email }}
-      </li>
-      <li>
-        {{ errors.Password }}
-      </li>
-    </ul>
+  <div :class="['modal', showmodal ? 'is-active' : '']">
+    <div class="modal-background" @click="$emit('close')"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Sign up</p>
+        <button
+          class="delete"
+          @click="$emit('close')"
+          aria-label="close"
+        ></button>
+      </header>
+      <section class="modal-card-body has-text-centered">
+        <form class="signup" @submit.prevent="signup">
+          <label>User name</label>
+          <br />
+          <input required v-model="username" type="text" />
+          <br />
+          <br />
+          <label>Email</label>
+          <br />
+          <input required v-model="email" type="text" />
+          <br />
+          <br />
+          <label>Password</label>
+          <br />
+          <input required v-model="password" type="password" />
+          <br />
+          <br />
+          <button class="button is-primary" type="submit">Sign up</button>
+        </form>
+      </section>
+      <p v-if="showError" id="error">An error occured :</p>
+    </div>
   </div>
 </template>
 
@@ -41,33 +40,25 @@ import { SIGNUP_REQUEST } from "@/store/modules/auth.js";
 
 export default {
   name: "SignUp",
+  data() {
+    return {
+      username: null,
+      email: null,
+      password: null,
+      showError: false,
+    };
+  },
+  props: ["showmodal"],
   methods: {
     signup: function () {
       const { username, email, password } = this;
       this.$store
         .dispatch(SIGNUP_REQUEST, { username, email, password })
         .then(() => {
+          this.$emit("close");
           this.$router.push("/");
         });
     },
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

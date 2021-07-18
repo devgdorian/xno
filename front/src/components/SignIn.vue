@@ -4,9 +4,13 @@
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">Sign in</p>
-        <button class="delete" @click="$emit('close')" aria-label="close"></button>
+        <button
+          class="delete"
+          @click="$emit('close')"
+          aria-label="close"
+        ></button>
       </header>
-      <section class="modal-card-body">
+      <section class="modal-card-body has-text-centered">
         <form class="signin" @submit.prevent="signin">
           <label>User name</label>
           <br />
@@ -15,12 +19,7 @@
           <br />
           <label>Password</label>
           <br />
-          <input
-            required
-            v-model="password"
-            type="password"
-            placeholder="Password"
-          />
+          <input required v-model="password" type="password" />
           <br />
           <br />
           <button class="button is-primary" type="submit">Sign In</button>
@@ -40,36 +39,18 @@ export default {
     return {
       username: null,
       password: null,
-      showError: false
-    }
+      showError: false,
+    };
   },
-  props: ['showmodal'],
+  props: ["showmodal"],
   methods: {
     signin: function () {
       const { username, password } = this;
       this.$store.dispatch(SIGNIN_REQUEST, { username, password }).then(() => {
-        this.$emit('close');
+        this.$emit("close");
         this.$router.push("/");
       });
     },
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
