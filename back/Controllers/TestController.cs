@@ -20,7 +20,8 @@ namespace Xno.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<AppUser>>> Get()
+        [Route("get-users")]
+        public async Task<ActionResult<List<AppUser>>> GetUsers()
         {
             return await _db.AppUsers.ToListAsync();
         }

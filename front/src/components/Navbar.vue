@@ -1,5 +1,6 @@
 <template>
   <div id="nav">
+    {{ status }}
     <router-link to="/">Accueil</router-link> |
     <span v-if="isLoggedIn">
       <a @click="logout">Logout</a>
@@ -12,6 +13,8 @@
 
 <script>
 import Login from "@/components/Login.vue";
+import { mapGetters } from "vuex";
+import { AUTH_LOGOUT } from "@/store/modules/auth.js";
 
 export default {
   name: "Navbar",
@@ -19,14 +22,16 @@ export default {
     Login,
   },
   computed: {
+    ...mapGetters({ status: "authStatus" }),
     isLoggedIn: function () {
       return this.$store.getters.isAuthenticated;
     },
   },
   methods: {
-    async logout() {
-      await this.$store.dispatch("Logout");
-      this.$router.push("/");
+    logout: function () {
+      this.$store.dispatch(AUTH_LOGOUT).then(() => {
+        this.$router.push("/");
+      });
     },
   },
 };

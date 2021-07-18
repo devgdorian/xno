@@ -1,17 +1,29 @@
 <template>
   <div class="home">
     <p>Xeno logged in</p>
-    {{ User }}
+    {{ users }}
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   name: "Xno",
-  computed: {
-    ...mapGetters({User: "stateUser"}),
+  data() {
+    return {
+      users: null,
+    };
+  },
+  created() {
+    this.GetUsers();
+  },
+  methods: {
+    async GetUsers() {
+      axios.get("test/get-users").then((res) => {
+        this.users = res;
+      });
+    },
   },
 };
 </script>

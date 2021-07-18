@@ -4,19 +4,28 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import axios from "axios";
+import AUTH_LOGOUT from "@/store/modules/auth.js";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "https://localhost:5001/api/";
 
 axios.interceptors.response.use(undefined, function (error) {
-    if (error) {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
-            store.dispatch('Logout')
-            return router.push('/')
-        }
+  if (error) {
+    if (
+      error.status === 401 &&
+      error.config &&
+      !error.config.__isRetryRequest
+    ) {
+      this.$store.dispatch(AUTH_LOGOUT);
+      return router.push("/");
     }
-})
+    throw error;
+  }
+});
+
+const token = localStorage.getItem("user-token");
+if (token) {
+  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+}
 
 createApp(App).use(router).use(store).mount("#app");

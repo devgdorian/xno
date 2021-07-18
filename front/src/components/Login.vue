@@ -1,15 +1,15 @@
 <template>
   <div>
-    <form class="login" @submit.prevent="submit">
+    <form class="login" @submit.prevent="login">
       <h1>Sign in</h1>
       <label>User name</label>
-      <input required v-model="form.username" type="text" placeholder="Snoopy" />
+      <input required v-model="username" type="text" placeholder="Snoopy" />
       <br />
       <br />
       <label>Password</label>
       <input
         required
-        v-model="form.password"
+        v-model="password"
         type="password"
         placeholder="Password"
       />
@@ -22,66 +22,19 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { AUTH_REQUEST } from "@/store/modules/auth.js";
 
 export default {
   name: "Login",
-  components: {},
-  data() {
-    return {
-      form: {
-        username: "",
-        password: "",
-      },
-      showError: false
-    };
-  },
   methods: {
-    ...mapActions(["Login"]),
-    async submit() {
-      try {
-          await this.Login(this.form);
-          this.$router.push("/xno");
-          this.showError = false
-      } catch (error) {
-        this.showError = true
-      }
+    login: function () {
+      const { username, password } = this;
+      this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
+        this.$router.push("/");
+      });
     },
   },
 };
-
-// import axios from "axios";
-
-// const instance = axios.create({
-//   baseURL: "https://localhost:5001/api",
-//   // headers: { 'Access-Control-Allow-Origin': '*' }
-// });
-
-// const myLoginRoutine = (user) =>
-//   new Promise((resolve, reject) => {
-//     instance({ url: "auth/login", data: user, method: "POST" })
-//       .then((resp) => {
-//         const token = resp.data.token;
-//         localStorage.setItem("user-token", token); // store the token in localstorage
-//         resolve(resp);
-//       })
-//       .catch((err) => {
-//         localStorage.removeItem("user-token"); // if the request fails, remove any possible user token if possible
-//         reject(err);
-//       });
-//   });
-
-// export default {
-//   name: "Login",
-//   methods: {
-//     login: function () {
-//       const { username, password } = this;
-//       myLoginRoutine({ username, password }).then(() => {
-//         this.$router.push("/xno");
-//       });
-//     },
-//   },
-// };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
