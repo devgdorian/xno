@@ -1,22 +1,19 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Xno logo</router-link>
-    <!-- <button
-      v-if="authState && authState.isAuthenticated"
-      v-on:click="logout"
-      id="logout-button"
-    >
-      Logout
-    </button>
-    <button v-else v-on:click="login" id="login-button">Login</button> -->
+  <div id="xno">
+    <Navbar />
+    <router-view />
   </div>
-  <router-view />
 </template>
 
 <script lang="ts">
-  export default {
-    name: "app",
-  };
+import Navbar from "@/components/Navbar.vue";
+
+export default {
+  name: "app",
+  components: {
+    Navbar,
+  },
+};
 </script>
 
 <style lang="less">

@@ -1,54 +1,107 @@
 <template>
- <div>
-   <form class="register" @submit.prevent="register">
-     <h1>Register</h1>
-     <label>User name</label>
-     <input required v-model="username" type="text" placeholder="Snoopy"/>
-     <br/>
-     <br/>
-     <label>Email</label>
-     <input required v-model="email" type="text" placeholder="Email"/>
-     <br/>
-     <br/>
-     <label>Password</label>
-     <input required v-model="password" type="password" placeholder="Password"/>
-     <br/>
-     <br/>
-     <button type="submit">Register</button>
-   </form>
- </div>
+  <div>
+    <form class="register" @submit.prevent="submit">
+      <h1>Register</h1>
+      <label>User name</label>
+      <input required v-model="form.username" type="text" placeholder="Snoopy" />
+      <br />
+      <br />
+      <label>Email</label>
+      <input required v-model="form.email" type="text" placeholder="Email" />
+      <br />
+      <br />
+      <label>Password</label>
+      <input
+        required
+        v-model="form.password"
+        type="password"
+        placeholder="Password"
+      />
+      <br />
+      <br />
+      <button type="submit">Register</button>
+    </form>
+    <p v-if="showError" id="error">An error occured :</p>
+    <ul v-if="showError">
+      <li>
+        {{ errors.Username }}
+      </li>
+      <li>
+        {{ errors.Email }}
+      </li>
+      <li>
+        {{ errors.Password }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-  import axios from "axios";
+import { mapActions } from "vuex";
 
-  const instance = axios.create({
-    baseURL: 'https://localhost:5001/api',
-    // headers: { 'Access-Control-Allow-Origin': '*' }
-  });
-
-  const myRegisterRoutine = user => new Promise ((resolve, reject) => {
-    instance({url: 'auth/register', data: user, method: 'POST' })
-      .then(resp => {
-        console.log(resp)
-      })
-    .catch(err => {
-      console.log(err)
-      reject(err)
-    })
-  });
-  
-  export default {
-    name: "Register",
-    methods: {
-      register: function () {
-        const { username, email, password } = this
-        myRegisterRoutine({ username, email, password }).then(() => {
-          this.$router.push('/')
-        })
+export default {
+  name: "Register",
+  components: {},
+  data() {
+    return {
+      form: {
+        username: "",
+        email: "",
+        password: "",
+      },
+      errors: {
+        Username: null,
+        Email: null,
+        Password: null
+      },
+      showError: false
+    };
+  },
+  methods: {
+    ...mapActions(["Register"]),
+    async submit() {
+      try {
+        await this.Register(this.form);
+        this.$router.push("/login");
+        this.showError = false
+      } catch (res) {
+        console.log(res);
+        this.errors = res.errors
+        this.showError = true
       }
-    }
-  };
+    },
+  },
+};
+
+// import axios from "axios";
+
+// const instance = axios.create({
+//   baseURL: "https://localhost:5001/api",
+// });
+
+// const myRegisterRoutine = (user) =>
+//   new Promise((resolve, reject) => {
+//     instance({ url: "auth/register", data: user, method: "POST" })
+//       .then((resp) => {
+//         console.log(resp);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         reject(err);
+//       });
+//   });
+
+// export default {
+//   name: "Register",
+//   methods: {
+//     register: function () {
+//       const { username, email, password } = this;
+//       myRegisterRoutine({ username, email, password }).then(() => {
+//         this.$router.push("/");
+//       });
+//     },
+//   },
+// };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,20 +1,22 @@
 <template>
   <div class="home">
-    <Login />
-    <Register />
+    <h3>Accueil Xno</h3>
+    <Register v-if="!isLoggedIn" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Login from "@/components/Login.vue";
 import Register from "@/components/Register.vue";
 
 export default {
   name: "Home",
   components: {
-    Login,
-    Register
+    Register,
+  },
+  computed: {
+    isLoggedIn: function () {
+      return this.$store.getters.isAuthenticated;
+    },
   },
 };
 </script>
