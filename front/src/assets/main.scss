@@ -1,17 +1,3 @@
-$primary: rgb(44, 212, 142);
-
-.navbar-brand {
-    padding-left: 6%;
-}
-
-.navbar-menu {
-    padding-right: 4%;
-}
-
-#status {
-    font-style: italic;
-}
-
 #app a {
     &:hover {
         color: rgb(90, 219, 165);
@@ -19,4 +5,7 @@ $primary: rgb(44, 212, 142);
     color: rgb(29, 139, 93);
 }
 
+@import "./_variables.scss";
+@import "./_navbar.scss";
+@import "./_xno.scss";
 @import "../../node_modules/bulma/bulma.sass";
