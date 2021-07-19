@@ -48,7 +48,7 @@ export default {
       const { username, password } = this;
       this.$store.dispatch(SIGNIN_REQUEST, { username, password }).then(() => {
         this.$emit("close");
-        this.$router.push("/");
+        this.$router.push("/xno");
       });
     },
   },

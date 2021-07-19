@@ -13,7 +13,6 @@ export const SIGNUP_ERROR = "SIGNUP_ERROR";
 const state = {
   token: localStorage.getItem("user-token") || "",
   status: "guest",
-  // TODO username:
 };
 
 const getters = {
