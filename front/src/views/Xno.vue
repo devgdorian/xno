@@ -50,8 +50,11 @@ export default {
     this.GetUsers();
   },
   methods: {
-    show(module) {
-      this.modules[module] = true;
+    show(moduleToShow) {
+      for (let module in this.modules) {
+        this.modules[module] = false;
+      }
+      this.modules[moduleToShow] = true;
     },
     async GetUsers() {
       axios.get("test/get-users").then((res) => {
