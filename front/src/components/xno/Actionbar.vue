@@ -3,7 +3,7 @@
     <div class="columns has-text-centered">
       <div class="column">
         <a @click.prevent="$emit('showcharacter')">
-          <p class="title">Illima</p>
+          <p class="title">Islanzadi</p>
           <p class="heading">Status</p>
           <p class="heading">Sick</p>
         </a>

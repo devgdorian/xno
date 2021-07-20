@@ -57,7 +57,8 @@ export default {
       this.modules[moduleToShow] = true;
     },
     async GetUsers() {
-      axios.get("test/get-users").then((res) => {
+      axios.get("character/get-current").then((res) => {
+        console.log(res);
         this.users = res;
       });
     },
