@@ -1,59 +1,58 @@
 <template>
   <div id="xno">
-    <section class="section">
-      <div class="columns has-text-centered">
-        <div class="column">
-          <Character />
-        </div>
-        <div class="column">
-          <Ship />
-        </div>
-        <div class="column">
-          <Xnocare />
-        </div>
-        <div class="column">
-          <Map />
-        </div>
-        <div class="column is-offset-2">
-          <Event />
-        </div>
-        <div class="column">
-          <Clock />
-        </div>
-      </div>
-    </section>
+    <Actionbar @showcharacter="show(CHARACTER)" @showship="show(SHIP)" @showxnocare="show(XNOCARE)" @showmap="show(MAP)" />
+    <Character v-if="modules[CHARACTER]" />
+    <Ship v-if="modules[SHIP]" />
+    <Xnocare v-if="modules[XNOCARE]" />
+    <Map v-if="modules[MAP]" />
     {{ users }}
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import Character from '@/components/xno/Character';
-import Ship from '@/components/xno/Ship.vue';
-import Xnocare from '@/components/xno/Xnocare.vue';
-import Map from '@/components/xno/Map.vue';
-import Event from '@/components/xno/Event.vue';
-import Clock from "@/components/xno/Clock";
+import Actionbar from "@/components/xno/Actionbar";
+import Character from "@/components/xno/Character";
+import Ship from "@/components/xno/Ship";
+import Xnocare from "@/components/xno/Xnocare";
+import Map from "@/components/xno/Map";
+
+const CHARACTER = "character";
+const SHIP = "ship";
+const XNOCARE = "xnocare";
+const MAP = "map";
 
 export default {
   name: "Xno",
   data() {
     return {
+      CHARACTER: [CHARACTER],
+      SHIP: [SHIP],
+      XNOCARE: [XNOCARE],
+      MAP: [MAP],
+      modules: {
+        [CHARACTER]: false,
+        [SHIP]: false,
+        [XNOCARE]: false,
+        [MAP]: false,
+      },
       users: null,
     };
   },
   components: {
+    Actionbar,
     Character,
     Ship,
     Xnocare,
     Map,
-    Event,
-    Clock,
   },
   created() {
     this.GetUsers();
   },
   methods: {
+    show(module) {
+      this.modules[module] = true;
+    },
     async GetUsers() {
       axios.get("test/get-users").then((res) => {
         this.users = res;

@@ -1,13 +1,14 @@
 <template>
-    <div>
-        <p class="title">Illima</p>
-        <p class="heading">Status</p>
-        <p class="heading">Sick</p>
-    </div>
+  <div id="character">
+    <section class="section">Character</section>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "Character",
-}
+  name: "Character",
+  data() { return {} },
+  created() {},
+  methods: {},
+};
 </script>

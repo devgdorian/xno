@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <p class="title">The Vestoya</p>
-        <p class="heading">Status</p>
-        <p class="heading">Landed</p>
-    </div>
+  <div id="ship">
+    <section class="section">Ship</section>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "Ship",
-}
+  name: "Ship",
+};
 </script>
