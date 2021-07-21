@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Xno.Helpers;
 using Xno.Models.Db;
 
 namespace Xno.Controllers
@@ -10,7 +12,6 @@ namespace Xno.Controllers
     public class CharacterController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
-        private readonly string _userId;
 
         public CharacterController(ApplicationDbContext dbContext)
         {
@@ -18,10 +19,14 @@ namespace Xno.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("get-current")]
         public async Task<ActionResult<Character>> GetCurrent()
         {
-            return await _db.Characters.FirstAsync();
+            string userId = User.FindFirst(p => p.Type == "id")?.Value;
+            AppUser user = _db.AppUsers.Find(userId);
+
+            return await _db.Characters.Where(p => p.User == user && p.IsCurrent).FirstAsync();
         }
     }
 }

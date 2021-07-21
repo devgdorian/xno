@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +37,9 @@ namespace Xno.Controllers
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));  
   
                 var token = new JwtSecurityToken(  
+                    claims: new List<Claim> {
+                        new Claim("id", user.Id.ToString())
+                    },
                     issuer: _configuration["JWT:ValidIssuer"],  
                     audience: _configuration["JWT:ValidAudience"],  
                     expires: DateTime.Now.AddHours(3),  

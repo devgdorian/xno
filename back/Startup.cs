@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Xno.Helpers;
 using Xno.Models.Db;
 
 namespace Xno
@@ -40,8 +41,7 @@ namespace Xno
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 
             services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             
             services.AddAuthentication(options =>  
             {  
@@ -86,6 +86,8 @@ namespace Xno
 
             dbContext.Database.EnsureCreated();
 
+            app.UseMiddleware<JwtMiddleware>();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
