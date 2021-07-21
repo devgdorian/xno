@@ -15,7 +15,8 @@ axios.interceptors.response.use(undefined, function (error) {
     store.dispatch(SIGNOFF_REQUEST);
     return router.push("/");
   }
-  throw error;
+  // TODO gerer throw ?
+  //throw error;
 });
 
 const token = localStorage.getItem("user-token");

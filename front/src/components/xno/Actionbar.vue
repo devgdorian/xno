@@ -2,10 +2,11 @@
   <section id="actionbar" class="section">
     <div class="columns has-text-centered">
       <div class="column">
-        <a @click.prevent="$emit('showcharacter')">
-          <p class="title">Islanzadi</p>
-          <p class="heading">Status</p>
-          <p class="heading">Sick</p>
+        <div v-if="!this.characterloaded" class="loader is-loading"></div>
+        <a @click.prevent="$emit('showcharacter')" v-if="this.characterloaded">
+          <p class="title">{{ character.name }}</p>
+          <p class="heading">{{ character.race }}</p>
+          <p class="heading">{{ character.healthstatus }}</p>
         </a>
       </div>
       <div class="column">
@@ -40,7 +41,7 @@
       </div>
       <div class="column">
         <div>
-          <p class="title" title="xno standard time">9:79</p>
+          <p class="title" title="xno standard time">8:79</p>
           <p class="heading">Ilupso | 5/9</p>
           <p class="heading">Cycle 820</p>
         </div>
@@ -50,7 +51,31 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Actionbar",
+  data() {
+    return {
+      "character": {
+        "name": null,
+        "race": null,
+        "healthystatus": null
+      },
+      "characterloaded": false
+    }
+  },
+  created() {
+    this.GetCurrentCharacterInfos();
+  },
+  methods: {
+    async GetCurrentCharacterInfos() {
+      let vm = this;
+      axios.get("character/current/get-infos").then((res) => {
+        vm.character = res.data;
+        vm.characterloaded = true;
+      });
+    },
+  }
 };
 </script>

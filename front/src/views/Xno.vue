@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Actionbar from "@/components/xno/Actionbar";
 import Character from "@/components/xno/Character";
 import Ship from "@/components/xno/Ship";
@@ -47,7 +46,6 @@ export default {
     Map,
   },
   created() {
-    this.GetUsers();
   },
   methods: {
     show(moduleToShow) {
@@ -55,12 +53,6 @@ export default {
         this.modules[module] = false;
       }
       this.modules[moduleToShow] = true;
-    },
-    async GetUsers() {
-      axios.get("character/get-current").then((res) => {
-        console.log(res);
-        this.users = res;
-      });
     },
   },
 };

@@ -19,14 +19,47 @@ namespace Xno.Controllers
         }
 
         [HttpGet]
+        [Route("current/get")]
         [Authorize]
-        [Route("get-current")]
         public async Task<ActionResult<Character>> GetCurrent()
+        {
+            // TODO user in basecontroller
+            string userId = User.FindFirst(p => p.Type == "id")?.Value;
+            AppUser user = _db.AppUsers.Find(userId);
+
+            var character = await _db.Characters
+                .Include(p => p.Race)
+                .Include(p => p.Perks)
+                .Include(p => p.Skillpoints)
+                .ThenInclude(p => p.Skill)
+                .Where(p => p.User == user && p.IsCurrent).FirstAsync();
+
+            return Ok(new { 
+                character = new {
+                    name = character.Name,
+                    healthstatus = character.HealthStatus.ToString(),
+                    race = character.Race.Name,
+                    perks = character.Perks,
+                    Skillpoint = character.Skillpoints
+                }
+            });
+        }
+
+        [HttpGet]
+        [Route("current/get-infos")]
+        [Authorize]
+        public async Task<JsonResult> GetCurrentInfos()
         {
             string userId = User.FindFirst(p => p.Type == "id")?.Value;
             AppUser user = _db.AppUsers.Find(userId);
 
-            return await _db.Characters.Where(p => p.User == user && p.IsCurrent).FirstAsync();
+            var character = await _db.Characters.Include(p => p.Race).Where(p => p.User == user && p.IsCurrent).SingleAsync();
+
+            return new JsonResult(new { 
+                name = character.Name,
+                healthstatus = character.HealthStatus.ToString(),
+                race = character.Race.Name,
+            });
         }
     }
 }
