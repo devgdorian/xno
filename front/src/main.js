@@ -1,26 +1,21 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import App from "./App.vue";
+import { SIGNOFF_REQUEST } from "@/store/modules/auth.js";
+
+import { createApp } from "vue";
+import "./registerServiceWorker";
 import axios from "axios";
-import SIGNOFF_REQUEST from "@/store/modules/auth.js";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "https://localhost:5001/api/";
 
 axios.interceptors.response.use(undefined, function (error) {
-  if (error) {
-    if (
-      error.status === 401 &&
-      error.config &&
-      !error.config.__isRetryRequest
-    ) {
-      this.$store.dispatch(SIGNOFF_REQUEST);
-      return router.push("/");
-    }
-    throw error;
+  if (error && error.response.status === 401) {
+    store.dispatch(SIGNOFF_REQUEST);
+    return router.push("/");
   }
+  throw error;
 });
 
 const token = localStorage.getItem("user-token");

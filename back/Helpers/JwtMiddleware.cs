@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Xno.Models.Db;
 
@@ -18,23 +19,25 @@ namespace Xno.Helpers
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, ApplicationDbContext db)
+        public async Task Invoke(HttpContext context, ApplicationDbContext db, IConfiguration configuration)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                attachUserToContext(context, db, token);
+                attachUserToContext(context, db, token, configuration);
 
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, ApplicationDbContext db, string token)
+        private void attachUserToContext(HttpContext context, ApplicationDbContext db, string token, IConfiguration configuration)
         {
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                // TODO Get secret from appsettings
-                var key = Encoding.ASCII.GetBytes("xnosecretisthexno");
+
+                string secret = configuration["JWT:Secret"];
+                var key = Encoding.ASCII.GetBytes(secret);
+                
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

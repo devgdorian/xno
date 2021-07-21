@@ -15,7 +15,6 @@ namespace Xno.Helpers
             if (user == null)
             {
                 // not logged in
-                // TODO Gerer la deco si unauth
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
         }
